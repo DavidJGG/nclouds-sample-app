@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.deployment.name }}
+  namespace: {{ .Values.app.ns.name }}
+  labels:
+    app: nclouds
+    type: deployment
+    name: davidjgg-deploy
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: nclouds
+      type: pod
+      name: sample-app
+  template:
+    metadata:
+      labels:
+        app: nclouds
+        type: pod
+        name: sample-app
+    spec:
+      containers:
+      - name: {{ .Values.image.name }}
+        image: {{ .Values.image.repository }}
+        env:
+        - name: {{ .Values.image.env.name }}
+          value: {{ .Values.image.env.value }}
+        resources:
+          limits:
+            memory: {{ .Values.resources.lim.mem }}
+            cpu: {{ .Values.resources.lim.cpu }}
+          requests:
+            memory: {{ .Values.resources.req.mem }}
+            cpu: {{ .Values.resources.req.cpu }}
+        ports:
+        - containerPort: {{ .Values.image.containerPort }}

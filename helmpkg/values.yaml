@@ -1,0 +1,43 @@
+# Default values for david-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 3
+
+hpa:
+  maxReplicas: 15
+  minReplicas: 3
+  maxcpu: 60
+
+route53url: davidjgg-circleci.training.test-something.com
+
+service:
+  type: LoadBalancer
+  port: 80
+
+app:
+  deployment:
+    name: nclouds-davidjgg-deploy
+  service:
+    name: nclouds-davidjgg-svc
+  ns:
+    name: davidjgg-ns
+
+image:
+  name: davidjgg-app
+  repository: ncloudspublic/sample-app
+  pullPolicy: IfNotPresent
+  containerPort: 3000
+  env:
+    name: APPLICATION
+    value: nclouds-sample-app
+
+resources:
+  lim:
+    mem: 256Mi
+    cpu: 500m
+  req:
+    mem: 128Mi
+    cpu: 250m
+    
+
