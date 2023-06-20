@@ -31,7 +31,10 @@ jobs:
             export AWS_SECRET_ACCESS_KEY=$(echo "${ACCOUNT_ROLE}" | jq -r '.Credentials.SecretAccessKey')
             export AWS_SESSION_TOKEN=$(echo "${ACCOUNT_ROLE}" | jq -r '.Credentials.SessionToken')
             aws eks update-kubeconfig --name nclouds-cluster --region ${REGION}
-            helm upgrade -f ${VALUES_FILE} ${CHART_NAME} ${PATH_CHART} --install      
+            helm upgrade -f ${VALUES_FILE} --set image.repository=${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${REPO}:${CIRCLE_SHA1:0:10} \
+            ${CHART_NAME} \
+            ${PATH_CHART} \
+            --install      
             kubectl get all -n ${K8S_NAME_SPACE}                  
 workflows:
   nclouds-workflow:
