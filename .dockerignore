@@ -4,7 +4,5 @@ npm-debug.log
 Dockerfile
 kustomization.yml
 README.md
-.gitignore
 .dockerignore
-.github
 test
