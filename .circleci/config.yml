@@ -33,6 +33,11 @@ jobs:
             aws eks update-kubeconfig --name nclouds-cluster --region ${REGION}
             kubectl get pods
             helm list
+      - run:
+          name: "Helm deploy"
+          command: |
+            echo $(pwd)
+            ls -l
 workflows:
   nclouds-workflow:
     jobs:
