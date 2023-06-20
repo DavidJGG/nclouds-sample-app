@@ -32,6 +32,7 @@ jobs:
             export AWS_SESSION_TOKEN=$(echo "${ACCOUNT_ROLE}" | jq -r '.Credentials.SessionToken')
             aws eks update-kubeconfig --name nclouds-cluster --region ${REGION}
             kubectl get pods
+            helm list
 workflows:
   nclouds-workflow:
     jobs:
